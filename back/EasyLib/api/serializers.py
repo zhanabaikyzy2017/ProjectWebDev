@@ -1,12 +1,14 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from api.models import Book,Author,Publisher,UserProfile,Category,Quotation
+from api.models import Book,Author,Publisher,UserProfile,Category,Review
 class AuthorSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     class Meta:
         model = Author
         fields = '__all__'
 
 class PublisherSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     class Meta:
         model = Publisher
         fields = '__all__'
@@ -22,10 +24,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = ('__all__')
+        fields = ('mobile','website','join_date','book')
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Category
         fields = '__all__'
@@ -33,20 +37,23 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class BookSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
-    author = AuthorSerializer(read_only=True)
-    publisher = PublisherSerializer(read_only=True)
-    category = CategorySerializer(read_only=True)
-    added_by = UserProfileSerializer(read_only=True)
+    author = AuthorSerializer
+    publisher = PublisherSerializer
+    category = CategorySerializer
+
 
     class Meta:
         model = Book
-        fields = ('id','author','publisher','category','year','added_by','page_amount')
+        fields = ('id','title','author','publisher','category','year','page_amount')
 
-class QuotationSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        return Book.objects.create(**validated_data)
+
+class ReviewSerializer(serializers.ModelSerializer):
     user = UserSerializer
     book = BookSerializer
 
     class Meta:
-        model = Quotation
+        model = Review
         fields = '__all__'
 

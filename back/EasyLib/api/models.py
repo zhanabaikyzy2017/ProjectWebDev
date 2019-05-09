@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils import timezone
 
 class Author(models.Model):
     name = models.CharField(max_length=200)
@@ -22,33 +22,38 @@ class Publisher(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
+
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
+
 class Book(models.Model):
     title = models.CharField(max_length=200)
-    category = models.ManyToManyField(Category)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE,default=1)
     description = models.CharField(max_length=200)
     year = models.IntegerField()
     page_amount = models.IntegerField()
     author = models.ForeignKey(Author ,on_delete=models.CASCADE)
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
+    # review = models.ForeignKey(Review, on_delete=models.CASCADE, default=1, related_name='reviews')
+
 
     class Meta:
         verbose_name = 'Book'
         verbose_name_plural = 'Books'
 
-class Quotation(models.Model):
+
+class Review(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    book = models.ForeignKey(Book,on_delete=models.CASCADE)
-    quotation = models.CharField(max_length=600)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='reviews', default=1)
+    text = models.CharField(max_length=600)
     creation_date = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        verbose_name = 'Quotation'
-        verbose_name_plural = 'Quotations'
 
+    class Meta:
+        verbose_name = 'Review'
+        verbose_name_plural = 'Reviews'
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
@@ -56,3 +61,19 @@ class UserProfile(models.Model):
     website= models.CharField(max_length=50,null=True)
     join_date = models.DateTimeField(auto_now_add=True)
     book = models.ManyToManyField(Book)
+
+#     def get_or_create_userprofile(user):
+#         if user:
+#             # up = get_object_or_404(UserProfile, user=user)
+#             try:
+#                 up = UserProfile.objects.get(user=user)
+#                 if up:
+#                     return up
+#             except User.DoesNotExist:
+#                 pass
+#
+#         up = UserProfile(user=user, join_date=timezone.now())
+#         up.save()
+#         return up
+#
+# User.profile = property(lambda u: get_or_create_userprofile(user=u))
