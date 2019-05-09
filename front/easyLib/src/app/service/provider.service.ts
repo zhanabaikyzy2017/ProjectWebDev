@@ -18,6 +18,9 @@ export class ProviderService extends MainService{
   getCategories():Promise<ICategory[]>{
     return this.get(`http://localhost:8000/api/categories/`,{})
   }
+  getAuthors():Promise<IAuthor[]>{
+    return this.get(`http://localhost:8000/api/authors/`,{})
+  }
   auth(login: string, password: string): Promise<IAuthResponse> {
     return this.post(`http://localhost:8000/main/login/`, {
     username: login,

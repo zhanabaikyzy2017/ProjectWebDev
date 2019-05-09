@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProviderService } from '../service/provider.service';
-import { IBook,ICategory } from '../models/model';
+import { IBook,ICategory, IAuthor } from '../models/model';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -8,12 +8,16 @@ import { IBook,ICategory } from '../models/model';
 })
 export class MainComponent implements OnInit {
   public categories: ICategory[]=[];
+  public authors: IAuthor[]=[];
   constructor(private provider:ProviderService) { }
 
   ngOnInit() {
     this.provider.getCategories().then(res =>{
       this.categories = res;
     });
+    this.provider.getAuthors().then(res=>{
+      this.authors=res;
+    })
   }
 
 }

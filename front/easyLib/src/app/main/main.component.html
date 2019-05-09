@@ -11,6 +11,12 @@
         <a href="#" id="genres" >{{c.name}}</a>
     </div>
   </div> 
+  <div class="authors">
+    <h2 style="text-align: center;color:brown;">Authors</h2>
+    <div *ngFor="let a of authors">
+      <a href="#" id="authors">{{a.name+' '+a.surname}}</a>
+    </div>
+  </div>
 </div>
 <div class="footer">
   <h3 id="about_us">ABOUT US</h3>
