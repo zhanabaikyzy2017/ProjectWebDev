@@ -42,3 +42,6 @@ export interface IQuotation{
     quotation:string;
     creation_date:any;
 }
+export interface IAuthResponse{
+    token: string;
+}
