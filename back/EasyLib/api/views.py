@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 from api.models import Book,Category,Publisher,Review
 from api.serializers import BookSerializer,CategorySerializer,PublisherSerializer,ReviewSerializer
 from rest_framework.decorators import api_view
+=======
+from ..api.models import Book
+from ..api.serializers import BookSerializer
+
+>>>>>>> 0faff589a477b1fe35164cd60c6f2f26620c23ea
 from rest_framework import generics
 from django.http import Http404
 from rest_framework.response import Response

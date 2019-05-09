@@ -1,6 +1,10 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+<<<<<<< HEAD
 from api.models import Book,Author,Publisher,UserProfile,Category,Review
+=======
+from ..api.models import Book,Author,Publisher,UserProfile,Category,Quotation
+>>>>>>> 0faff589a477b1fe35164cd60c6f2f26620c23ea
 class AuthorSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     class Meta:
