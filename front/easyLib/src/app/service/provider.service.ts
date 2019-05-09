@@ -15,8 +15,10 @@ export class ProviderService extends MainService{
   getBooks():Promise<IBook[]>{
     return this.get(`http://localhost:8000/api/books/`,{})
   }
+  getCategories():Promise<ICategory[]>{
+    return this.get(`http://localhost:8000/api/categories/`,{})
+  }
   auth(login: string, password: string): Promise<IAuthResponse> {
-    console.log("logged")
     return this.post(`http://localhost:8000/main/login/`, {
     username: login,
     password: password

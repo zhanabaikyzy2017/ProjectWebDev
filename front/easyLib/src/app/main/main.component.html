@@ -2,7 +2,15 @@
   <h1>WELCOME TO EASYLIB!</h1>
   <button id="login"><a style="text-decoration: none;color: white"[routerLink]="'/login'">Log in</a></button>
 </div>
-<div class="welcome_page">  
+<div class="welcome_page"> 
+  <div class="categories">
+    <h2 style="text-align: center;color:brown;">Genres</h2>
+    <div *ngFor = "let c of categories">
+        <!-- <input type="text" [(ngModel)]="c.name">
+         -->
+        <a href="#" id="genres" >{{c.name}}</a>
+    </div>
+  </div> 
 </div>
 <div class="footer">
   <h3 id="about_us">ABOUT US</h3>
