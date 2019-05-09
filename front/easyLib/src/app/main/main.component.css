@@ -130,3 +130,27 @@
     text-transform: uppercase;
     background-color: rgba(233, 215, 215, 0.8);
 }
+.books{
+    position: absolute;
+    width:995px;
+    height:429px;
+    margin-left:250px;
+    margin-top:-380px;
+    border-radius: 10px;
+    background-color:rgba(233, 215, 215, 0.7);
+}
+.aboutbook{
+    border:0 solid black;
+    background-color:rgba(0,0,0,0.3);
+    height: 150px;
+    width: 280px;
+    margin-top:40px;
+    margin-left:20px;
+    border-radius: 10px;
+    color:black;
+}
+.bookdesc{
+    position: relative;
+    margin-top:-120px;
+    margin-left:100px;
+}

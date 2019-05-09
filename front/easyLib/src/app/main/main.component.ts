@@ -9,6 +9,7 @@ import { IBook,ICategory, IAuthor } from '../models/model';
 export class MainComponent implements OnInit {
   public categories: ICategory[]=[];
   public authors: IAuthor[]=[];
+  public books:IBook[]=[];
   constructor(private provider:ProviderService) { }
 
   ngOnInit() {
@@ -17,7 +18,10 @@ export class MainComponent implements OnInit {
     });
     this.provider.getAuthors().then(res=>{
       this.authors=res;
-    })
+    });
+    this.provider.getBooks().then(res=>{
+      this.books=res;
+    });
   }
 
 }

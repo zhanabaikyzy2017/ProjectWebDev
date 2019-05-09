@@ -21,6 +21,19 @@
     <input id="searchtwo" placeholder="search">
   </div>
   <button id="search">Search</button>
+  <div class="books">
+      <div class="aboutbook" *ngFor="let b of books">
+          <!-- <img src="{{ b.image.url }}" alt="img"> -->
+          <img style="margin-top:10px;width:120px" src="https://cdn.shopify.com/s/files/1/0882/3478/files/Book_7fce494e-606f-43d0-89a2-51b698aa3369_1400x.png?v=1553019482">
+          <div class="bookdesc">
+            <a style=" position:relative;margin-left:25px;text-transform: uppercase">{{b.title}}</a><br>
+            <a style="margin-left:10px">Genre:{{b.category}}</a><br>
+            <a style="margin-left:10px">Year:{{b.year}}</a><br>
+            <a style="margin-left:10px">Auhtor:{{b.author}}</a><br>
+            <a style="margin-left:10px">Pages:{{b.page_amount}}</a><br>
+          </div>
+      </div>
+  </div>
 </div>
 <div class="footer">
   <h3 id="about_us">ABOUT US</h3>

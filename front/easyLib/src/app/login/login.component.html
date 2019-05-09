@@ -1,5 +1,5 @@
 
-<ng-container *ngIf="!logged">
+<ng-container *ngIf="logged">
   <div class="all_page">
     <div class="login">
       <h2 id="login">Please,write...</h2>
@@ -13,7 +13,7 @@
 </ng-container>
 
 
-<ng-container *ngIf="logged">
+<ng-container *ngIf="!logged">
     <h1>Books you have</h1>
     <div *ngFor = "let b of books">
       <input type="text" [(ngModel)]="b.title">

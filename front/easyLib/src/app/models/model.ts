@@ -33,7 +33,8 @@ export interface IBook{
     author: IAuthor
     publisher:IPublisher
     page_amount:number;
-    added_by:IUserProfile
+    added_by:IUserProfile;
+    image:any;
 }
 
 export interface IQuotation{
