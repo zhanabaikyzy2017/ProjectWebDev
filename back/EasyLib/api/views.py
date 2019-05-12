@@ -1,12 +1,11 @@
-<<<<<<< HEAD
-from api.models import Book,Category,Publisher,Review
-from api.serializers import BookSerializer,CategorySerializer,PublisherSerializer,ReviewSerializer
-from rest_framework.decorators import api_view
-=======
-from ..api.models import Book
-from ..api.serializers import BookSerializer
 
->>>>>>> 0faff589a477b1fe35164cd60c6f2f26620c23ea
+from .models import Book,Category,Publisher,Review,Author
+from .serializers import BookSerializer,CategorySerializer,PublisherSerializer,ReviewSerializer,AuthorSerializer
+from rest_framework.decorators import api_view
+
+from .models import Book
+from .serializers import BookSerializer
+
 from rest_framework import generics
 from django.http import Http404
 from rest_framework.response import Response
@@ -18,7 +17,7 @@ from django.contrib.auth.models import UserManager
 class BookList(generics.ListCreateAPIView):
     serializer_class = BookSerializer
     queryset = Book.objects.all()
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
 
 class CategoryList(generics.ListCreateAPIView):
     serializer_class = CategorySerializer
@@ -43,12 +42,14 @@ class ReviewListOfOneBook(generics.ListCreateAPIView):
             raise Http404
 
         queryset = book.reviews.all()
-
         return queryset
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+class AuthorList(generics.ListCreateAPIView):
+    serializer_class = AuthorSerializer
+    queryset = Author.objects.all()
 
 
 

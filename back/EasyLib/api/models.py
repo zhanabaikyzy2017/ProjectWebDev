@@ -36,6 +36,7 @@ class Book(models.Model):
     page_amount = models.IntegerField()
     author = models.ForeignKey(Author ,on_delete=models.CASCADE)
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
+    image=models.ImageField(upload_to='Users/User/Desktop/ProjectWebDev/back/EasyLib/api/pic_folder/',default='pic_folder/FLAT-SEVAN-COVER.jpg')
     # review = models.ForeignKey(Review, on_delete=models.CASCADE, default=1, related_name='reviews')
 
 

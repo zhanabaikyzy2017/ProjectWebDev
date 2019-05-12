@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-<<<<<<< HEAD
-from api.models import Book,Author,Publisher,UserProfile,Category,Review
-=======
-from ..api.models import Book,Author,Publisher,UserProfile,Category,Quotation
->>>>>>> 0faff589a477b1fe35164cd60c6f2f26620c23ea
+
+from .models import Book,Author,Publisher,UserProfile,Category,Review
+
+from .models import Book,Author,Publisher,UserProfile,Category
+
 class AuthorSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     class Meta:
@@ -41,14 +41,14 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class BookSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
-    author = AuthorSerializer
-    publisher = PublisherSerializer
-    category = CategorySerializer
+    author = AuthorSerializer(read_only=True)
+    publisher = PublisherSerializer(read_only=True)
+    category = CategorySerializer(read_only=True)
 
 
     class Meta:
         model = Book
-        fields = ('id','title','author','publisher','category','year','page_amount')
+        fields = ('id','title','author','publisher','category','year','page_amount','image')
 
     def create(self, validated_data):
         return Book.objects.create(**validated_data)
