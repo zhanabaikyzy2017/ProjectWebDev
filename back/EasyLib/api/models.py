@@ -27,17 +27,15 @@ class Category(models.Model):
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
-
 class Book(models.Model):
     title = models.CharField(max_length=200)
-    category = models.ForeignKey(Category,on_delete=models.CASCADE,default=1)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE,default=1,related_name='books')
     description = models.CharField(max_length=200)
     year = models.IntegerField()
     page_amount = models.IntegerField()
-    author = models.ForeignKey(Author ,on_delete=models.CASCADE)
+    author = models.ForeignKey(Author ,on_delete=models.CASCADE, related_name='books')
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
     # review = models.ForeignKey(Review, on_delete=models.CASCADE, default=1, related_name='reviews')
-
 
     class Meta:
         verbose_name = 'Book'
@@ -46,13 +44,14 @@ class Book(models.Model):
 
 class Review(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='reviews', default=1)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='books', default=1)
     text = models.CharField(max_length=600)
     creation_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Review'
         verbose_name_plural = 'Reviews'
+
 
 class UserProfile(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,default=1)

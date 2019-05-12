@@ -52,7 +52,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 class ReviewSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
-    book = BookSerializer(read_only=True)
 
     class Meta:
         model = Review
