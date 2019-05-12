@@ -18,6 +18,7 @@ class CategoryList(generics.ListCreateAPIView):
     serializer_class = CategorySerializer
     #permission_classes = (IsAuthenticated,)
     queryset = Category.objects.all()
+
 class PublisherList(generics.ListCreateAPIView):
     serializer_class = PublisherSerializer
     queryset = Publisher.objects.all()
