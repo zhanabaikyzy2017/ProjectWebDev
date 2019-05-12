@@ -56,7 +56,7 @@ class Review(models.Model):
         verbose_name_plural = 'Reviews'
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,default=1)
     mobile = models.CharField(max_length=15,null=True)
     website= models.CharField(max_length=50,null=True)
     join_date = models.DateTimeField(auto_now_add=True)
