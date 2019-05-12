@@ -27,18 +27,16 @@ class Category(models.Model):
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
-
 class Book(models.Model):
     title = models.CharField(max_length=200)
-    category = models.ForeignKey(Category,on_delete=models.CASCADE,default=1)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE,default=1,related_name='books')
     description = models.CharField(max_length=200)
     year = models.IntegerField()
     page_amount = models.IntegerField()
-    author = models.ForeignKey(Author ,on_delete=models.CASCADE)
+    author = models.ForeignKey(Author ,on_delete=models.CASCADE, related_name='books')
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
     image=models.ImageField(upload_to='Users/User/Desktop/ProjectWebDev/back/EasyLib/api/pic_folder/',default='pic_folder/FLAT-SEVAN-COVER.jpg')
     # review = models.ForeignKey(Review, on_delete=models.CASCADE, default=1, related_name='reviews')
-
 
     class Meta:
         verbose_name = 'Book'
@@ -47,34 +45,19 @@ class Book(models.Model):
 
 class Review(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='reviews', default=1)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='books', default=1)
     text = models.CharField(max_length=600)
     creation_date = models.DateTimeField(auto_now_add=True)
-
 
     class Meta:
         verbose_name = 'Review'
         verbose_name_plural = 'Reviews'
 
+
 class UserProfile(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,default=1)
     mobile = models.CharField(max_length=15,null=True)
     website= models.CharField(max_length=50,null=True)
     join_date = models.DateTimeField(auto_now_add=True)
     book = models.ManyToManyField(Book)
 
-#     def get_or_create_userprofile(user):
-#         if user:
-#             # up = get_object_or_404(UserProfile, user=user)
-#             try:
-#                 up = UserProfile.objects.get(user=user)
-#                 if up:
-#                     return up
-#             except User.DoesNotExist:
-#                 pass
-#
-#         up = UserProfile(user=user, join_date=timezone.now())
-#         up.save()
-#         return up
-#
-# User.profile = property(lambda u: get_or_create_userprofile(user=u))
