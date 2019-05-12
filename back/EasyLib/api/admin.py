@@ -11,7 +11,7 @@ from api.models import Book,Category,Author,Publisher,UserProfile,Review
 # admin.site.register(Author)
 # admin.site.register(Publisher)
 # admin.site.register(Review)
-admin.site.register(UserProfile)
+# admin.site.register(UserProfile)
 
 
 @admin.register(Book)

@@ -50,7 +50,6 @@ class Review(models.Model):
     text = models.CharField(max_length=600)
     creation_date = models.DateTimeField(auto_now_add=True)
 
-
     class Meta:
         verbose_name = 'Review'
         verbose_name_plural = 'Reviews'
@@ -62,18 +61,3 @@ class UserProfile(models.Model):
     join_date = models.DateTimeField(auto_now_add=True)
     book = models.ManyToManyField(Book)
 
-#     def get_or_create_userprofile(user):
-#         if user:
-#             # up = get_object_or_404(UserProfile, user=user)
-#             try:
-#                 up = UserProfile.objects.get(user=user)
-#                 if up:
-#                     return up
-#             except User.DoesNotExist:
-#                 pass
-#
-#         up = UserProfile(user=user, join_date=timezone.now())
-#         up.save()
-#         return up
-#
-# User.profile = property(lambda u: get_or_create_userprofile(user=u))

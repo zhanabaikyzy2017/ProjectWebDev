@@ -24,9 +24,9 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class BookSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
-    author = AuthorSerializer
-    publisher = PublisherSerializer
-    category = CategorySerializer
+    author = AuthorSerializer(read_only=True)
+    publisher = PublisherSerializer(read_only=True)
+    category = CategorySerializer(read_only=True)
 
     class Meta:
         model = Book
@@ -35,10 +35,6 @@ class BookSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return Book.objects.create(**validated_data)
 
-
-
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -46,8 +42,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer
-    book = BookSerializer
+    user = UserSerializer(read_only=True)
+    book = BookSerializer(read_only=True)
 
     class Meta:
         model = UserProfile
@@ -55,8 +51,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-    user = UserSerializer
-    book = BookSerializer
+    user = UserSerializer(read_only=True)
+    book = BookSerializer(read_only=True)
 
     class Meta:
         model = Review
