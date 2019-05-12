@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProviderService } from '../service/provider.service';
-import { IBook,IUser } from '../models/model';
+import { IBook,IUser ,IUserProfile,IQuotation} from '../models/model';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
   public logged=false;
   public login:string="";
   public password:string="";
+  public userprofile:IUserProfile;
   
   constructor( private provider:ProviderService) { }
 
