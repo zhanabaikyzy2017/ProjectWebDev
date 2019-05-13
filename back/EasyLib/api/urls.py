@@ -16,4 +16,5 @@ urlpatterns = [
     path('user_profile/',views.UserProfileList.as_view()),
     path('categories/<int:pk>/books', views.CategoryBooks.as_view()),
     path('authors/<int:pk>/books', views.AuthorBooks.as_view()),
+    path('user_profile/books', views.UserProfileDetail.as_view())
 ]

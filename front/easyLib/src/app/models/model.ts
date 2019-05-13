@@ -11,14 +11,16 @@ export interface IPublisher{
 export interface IUser{
     userID:number;
     username:string;
-    password:string;
-    email:string;
+    // password:string;
+    // email:string;
 }
 export interface IUserProfile{
+    id:number;
     user: IUser;
     mobile:string;
-    websilte:string;
+    website:string;
     join_date:any;
+    book:IBook[];
 }
 
 export interface ICategory{

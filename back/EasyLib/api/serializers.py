@@ -49,7 +49,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
-    book = BookSerializer(read_only=True)
+    book = BookSerializer(read_only=True, many=True)
 
     class Meta:
         model = UserProfile

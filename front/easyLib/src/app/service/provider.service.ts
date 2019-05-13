@@ -22,9 +22,16 @@ export class ProviderService extends MainService{
     return this.get(`http://localhost:8000/api/authors/`,{})
   }
   auth(login: string, password: string): Promise<IAuthResponse> {
-    return this.post(`http://localhost:8000/main/login/`, {
+    return this.post(`http://localhost:8000/api/login/`, {
     username: login,
     password: password
   });
-}
+  }
+  logout():Promise<any>{
+    return this.post('http://localhost:8000/api/logout/',{})
+  }
+  UserProfileDetail():Promise<IUserProfile[]>{
+    return this.get('http://localhost:8000/api/user_profile/books',{
+    });
+  }
 }

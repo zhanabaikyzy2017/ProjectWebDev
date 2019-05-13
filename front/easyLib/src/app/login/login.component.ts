@@ -10,9 +10,12 @@ import { IBook,IUser ,IUserProfile,IQuotation} from '../models/model';
 export class LoginComponent implements OnInit {
   public books:IBook[]=[];
   public logged=false;
-  public login:string="";
-  public password:string="";
-  public userprofile:IUserProfile;
+  public login:any= '';
+  public password:any='';
+  public userProfile:IUserProfile[]=[];
+  public userbooks:IBook[];
+
+
   
   constructor( private provider:ProviderService) { }
 
@@ -22,15 +25,23 @@ export class LoginComponent implements OnInit {
       this.logged=true;
     }
     if(this.logged ){
-      console.log('logged')
-      this.provider.getBooks().then(res =>{
-        this.books = res;
+      
+      this.provider.UserProfileDetail().then(res=>{
+        console.log(res)
+        this.userProfile=res;
+        this.userbooks=this.userProfile[0].book;
+        console.log(this.userbooks)
       });
+
+      // console.log('logged')
+      // this.provider.getBooks().then(res =>{
+      //   this.books = res;
+      // });
     }
   }
   auth() {
-    console.log(this.login+" "+this.password);
     if (this.login !== '' && this.password !== '') {
+      console.log("asd")
         this.provider.auth(this.login,this.password).then(res => {
         localStorage.setItem('token', res.token);
         console.log(res);
@@ -40,5 +51,11 @@ export class LoginComponent implements OnInit {
         });
       });
     }
+  }
+  logout(){
+    this.provider.logout().then(res=>{
+      localStorage.clear();
+      this.logged = false;
+    })
   }
 }

@@ -9,7 +9,7 @@ import { AllpageComponent } from './allpage/allpage.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
 import { ProviderService } from './service/provider.service';
 import { AuthInterceptor } from './AuthInterceptor';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,10 +22,10 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule
+    FormsModule
   ],
-  providers: [ProviderService,  <ClassProvider> {
+  providers: [ProviderService, 
+    <ClassProvider> {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

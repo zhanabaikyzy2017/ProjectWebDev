@@ -61,8 +61,6 @@ class ReviewListOfOneBook(generics.ListCreateAPIView):
             raise Http404
         queryset = book.books.all()
         return queryset
-
-
         queryset = book.reviews.all()
         return queryset
 
@@ -100,3 +98,14 @@ class AuthorBooks(generics.ListAPIView):
             raise Http404
         queryset = author.books.all()
         return queryset
+
+class UserProfileDetail(generics.ListAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = (IsAuthenticated,)
+    def get_queryset(self):
+        try:
+            userProf = UserProfile.objects.filter(user=self.request.user)
+        except Review.DoesNotExist:
+            raise Http404
+        return userProf
+
