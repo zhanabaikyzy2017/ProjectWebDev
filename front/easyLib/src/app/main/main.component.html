@@ -1,59 +1,124 @@
-<div class="head">
-  <h1>WELCOME TO EASYLIB!</h1>
-  <button id="login"><a style="text-decoration: none;color: white"[routerLink]="'/login'">Log in</a></button>
-</div>
-<div class="welcome_page"> 
-  <div class="categories">
-    <h2 style="text-align: center;color:brown;">Genres</h2>
-    <div *ngFor = "let c of categories">
-        <!-- <input type="text" [(ngModel)]="c.name">
-         -->
-        <a href="#" id="genres" >{{c.name}}</a>
-    </div>
-  </div> 
-  <div class="authors">
-    <h2 style="text-align: center;color:brown;">Authors</h2>
-    <div *ngFor="let a of authors">
-      <a href="#" id="authors">{{a.name+' '+a.surname}}</a>
-    </div>
-  </div>
-  <div class="search">
-    <input id="searchtwo" placeholder="search">
-  </div>
-  <button id="search">Search</button>
-  <!-- <div class="books">
-      <div class="aboutbook" *ngFor="let b of books">
-          <img style="margin-top:10px;width:120px" src="https://cdn.shopify.com/s/files/1/0882/3478/files/Book_7fce494e-606f-43d0-89a2-51b698aa3369_1400x.png?v=1553019482">
-          <div class="bookdesc">
-            <a style=" position:relative;margin-left:25px;text-transform: uppercase">{{b.title}}</a><br>
-            <a style="margin-left:10px">Genre:{{b.category.name}}</a><br>
-            <a style="margin-left:10px">Year:{{b.year}}</a><br>
-            <a style="margin-left:10px">Auhtor:{{b.author.name+" "+b.author.surname}}</a><br>
-            <a style="margin-left:10px">Pages:{{b.page_amount}}</a><br>
+<ng-container>
+ <div *ngIf="!authorSelected">
+    <div *ngIf="!selected">
+        <div class="head">
+            <h1>WELCOME TO EASYLIB!</h1>
+            <button id="login"><a style="text-decoration: none;color: white"[routerLink]="'/login'">Log in</a></button>
           </div>
-      </div>
-  </div> -->
-  <div class="books">
-      <div class="row">
-          <div class="column" *ngFor="let b of books">
-            <div class="content">
-                <img style="margin-top:10px;width:120px" src="https://cdn.shopify.com/s/files/1/0882/3478/files/Book_7fce494e-606f-43d0-89a2-51b698aa3369_1400x.png?v=1553019482">
-                <div class="bookdesc">
-                  <a style=" position:relative;margin-left:25px;text-transform: uppercase">{{b.title}}</a><br>
-                  <a style="margin-left:10px">Genre:{{b.category.name}}</a><br>
-                  <a style="margin-left:10px">Year:{{b.year}}</a><br>
-                  <a style="margin-left:10px">Auhtor:{{b.author.name+" "+b.author.surname}}</a><br>
-                  <a style="margin-left:10px">Pages:{{b.page_amount}}</a><br>
+          <div class="welcome_page"> 
+            <div class="categories">
+              <h2 style="text-align: center;color:brown;">Genres</h2>
+              <div *ngFor = "let c of categories">
+                  <!-- <input type="text" [(ngModel)]="c.name">
+                   -->
+                   <!-- [routerLink]="['genre']"  -->
+                  <a id="genres" (click)="getSelectedGenreBooks(c)" >{{c.name}}</a>
+              </div>
+            </div> 
+            <div class="authors">
+              <h2 style="text-align: center;color:brown;">Authors</h2>
+              <div *ngFor="let a of authors">
+                  <!-- [routerLink]="['author']" -->
+                <a (click)="getSelectedAuthorBooks(a)" id="authors" >{{a.name+' '+a.surname}}</a>
+              </div>
+            </div>
+            <div class="search">
+              <input id="searchtwo" placeholder="search">
+            </div>
+            <button id="search">Search</button>
+            <!-- <div class="books">
+                <div class="aboutbook" *ngFor="let b of books">
+                    <img style="margin-top:10px;width:120px" src="https://cdn.shopify.com/s/files/1/0882/3478/files/Book_7fce494e-606f-43d0-89a2-51b698aa3369_1400x.png?v=1553019482">
+                    <div class="bookdesc">
+                      <a style=" position:relative;margin-left:25px;text-transform: uppercase">{{b.title}}</a><br>
+                      <a style="margin-left:10px">Genre:{{b.category.name}}</a><br>
+                      <a style="margin-left:10px">Year:{{b.year}}</a><br>
+                      <a style="margin-left:10px">Auhtor:{{b.author.name+" "+b.author.surname}}</a><br>
+                      <a style="margin-left:10px">Pages:{{b.page_amount}}</a><br>
+                    </div>
                 </div>
+            </div> -->
+            <div class="books">
+                <div class="row">
+                    <div class="column" *ngFor="let b of books">
+                      <div class="content">
+                          <img style="margin-top:10px;width:120px" src="https://cdn.shopify.com/s/files/1/0882/3478/files/Book_7fce494e-606f-43d0-89a2-51b698aa3369_1400x.png?v=1553019482">
+                          <div class="bookdesc">
+                            <a style=" position:relative;margin-left:25px;text-transform: uppercase">{{b.title}}</a><br>
+                            <a style="margin-left:px">Genre:{{b.category.name}}</a><br>
+                            <a style="margin-left:10px">Year:{{b.year}}</a><br>
+                            <a style="margin-left:10px">Auhtor:{{b.author.name+" "+b.author.surname}}</a><br>
+                            <a style="margin-left:10px">Pages:{{b.page_amount}}</a><br>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
             </div>
           </div>
-        </div>
+          <div class="footer">
+            <h3 id="about_us">ABOUT US</h3>
+            <a id="privacy" href="#">Privacy</a>
+            <a id="faq" href="#">FAQ</a>
+            <a id="contactus" href="#">Contact us</a>
+          </div>
+    </div>
+ </div>
+</ng-container>
+<ng-container>
+  <div *ngIf="selected" class="selectedGenre">
+     <div class="headerOfGenre">
+       <h1 style="position:relative;top:10px;"> You Genre</h1>
+     </div>
+     <div class="bodyOfGenre">
+       <div class="genrebooks">
+          <div class="row">
+            <div class="column" *ngFor="let gb of selectedCategoryBooks">
+              <div class="content">
+                <img style="margin-top:10px;width:120px" src="https://cdn.shopify.com/s/files/1/0882/3478/files/Book_7fce494e-606f-43d0-89a2-51b698aa3369_1400x.png?v=1553019482">
+                <div class="bookdesc">
+                  <ul>
+                    <li id="b" style="text-transform:uppercase;color:rgba(80, 1, 1, 0.7)">{{ gb.title }}</li>
+                    <li id="b">{{ gb.category.name }}</li>
+                    <li id="b">{{ gb.year }}</li>
+                    <li id="b">{{ gb.author.name+' '+gb.author.surname}}</li>
+                    <li id="b">{{ gb.page_amount }}</li>
+                  </ul>
+                </div>
+              </div>     
+            </div>
+          </div>
+       </div>
+     </div>
+     <button id="toTheMain" (click)="back()">Back</button>
   </div>
-</div>
-<div class="footer">
-  <h3 id="about_us">ABOUT US</h3>
-  <a id="privacy" href="#">Privacy</a>
-  <a id="faq" href="#">FAQ</a>
-  <a id="contactus" href="#">Contact us</a>
-</div>
+</ng-container>
+<ng-container>
+  <div *ngIf="authorSelected">
+    <div class="authorHeader">
+      <button id="authorBack" (click)="backForAuthor()">BACK</button>
+      <h1 style="position: relative;margin-top:-25px;margin-left:600px;color:rgba(80, 1, 1, 0.7);"> CHOSEN AUTHOR</h1>
+    </div>
+    <div class="authorBody">
+        <div class="genrebooks">
+            <div class="row">
+              <div class="column" *ngFor="let gb of selectedAuthorBooks">
+                <div class="content">
+                  <img style="margin-top:10px;width:120px" src="https://cdn.shopify.com/s/files/1/0882/3478/files/Book_7fce494e-606f-43d0-89a2-51b698aa3369_1400x.png?v=1553019482">
+                  <div class="bookdesc">
+                    <ul>
+                      <li id="b" style="text-transform:uppercase;color:rgba(80, 1, 1, 0.7)">{{ gb.title }}</li>
+                      <li id="b">{{ gb.category.name }}</li>
+                      <li id="b">{{ gb.year }}</li>
+                      <li id="b">{{ gb.author.name+' '+gb.author.surname}}</li>
+                      <li id="b">{{ gb.page_amount }}</li>
+                    </ul>
+                  </div>
+                </div>     
+              </div>
+            </div>
+            </div>
+    </div>
+
+  </div>
+</ng-container>
 

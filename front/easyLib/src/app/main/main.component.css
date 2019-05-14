@@ -144,8 +144,8 @@
 }
 .content{
     border:0 solid black;
-    background-color:rgba(0,0,0,0.3);
-    height: 150px;
+    /* background-color:rgba(0,0,0,0.3); */
+    height: 160px;
     width: 270px;
     margin-top:20px;
     margin-left:40px;
@@ -155,6 +155,7 @@
 }
 .content:hover{
     transform: scale(1.2); 
+    background-color:rgba(0,0,0,0.3);
 }
 .bookdesc{
     position: relative;
@@ -184,3 +185,75 @@
   .column{
       float:left;
   }
+  #authors{
+      left:10px;
+  }
+  .headerOfGenre{
+      position: relative;
+      border:0 solid black;
+      background-color:rgba(233, 215, 215, 0.8);
+      width: 100%;
+      height:60px;
+      border-radius: 20px;
+      text-align: center;
+      color:rgba(156, 72, 72, 0.8);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+
+  }
+  .bodyOfGenre{
+      position: relative;
+      border: 0 solid black;
+      width:100%;
+      height:650px;
+      background-image: url('https://images.unsplash.com/photo-1552197680-0223a9065fa3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80');
+      border-radius: 20px;
+
+  }
+  .genrebooks{
+      position: relative;
+      border:0 solid black;
+      width:70%;
+      height:500px;
+      background-color: rgba(233, 215, 215, 0.8);
+      border-radius: 10px;
+      top:80px;
+      left:230px;
+      overflow: scroll;
+  }
+  #toTheMain{
+    position: absolute;
+    margin-top:-700px;
+    width:50px;
+    height:40px;
+    background-color:rgba(156, 72, 72, 0.8);
+    color:white;
+    border-radius: 10px;
+    margin-left:20px;
+  }
+  .authorHeader{
+      position:relative;
+      border:0 solid black;
+      width:100%;
+      height:70px;
+      background-color:rgba(156, 72, 72, 0.2);
+      border-radius: 20px;
+  }
+  .authorBody{
+      position: relative;
+      border:0 solid black;
+      width:100%;
+      height: 680px;
+      background-image: url('https://cdn.pixabay.com/photo/2016/03/09/09/14/books-1245690_1280.jpg');
+      border-radius: 20px;
+      margin-top:10px;
+    }
+    #authorBack{
+        position: relative;
+        width:50px;
+        height:40px;
+        color:white;
+        border-radius: 10px;
+        top:15px;
+        left:20px;
+        background-color: rgba(153, 39, 39, 0.8);
+    }

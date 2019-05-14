@@ -1,14 +1,5 @@
-
-
-from .models import Book,Category,Publisher,Review,Author
-from .serializers import BookSerializer,CategorySerializer,PublisherSerializer,ReviewSerializer,AuthorSerializer
-from rest_framework.decorators import api_view
-
-from .models import Book
-from .serializers import BookSerializer
-
-from .models import Book,Category,Publisher,Review,UserProfile,Author
-from .serializers import BookSerializer,CategorySerializer,PublisherSerializer,ReviewSerializer,UserProfileSerializer
+from .models import Book,Category,Review,UserProfile,Author
+from .serializers import BookSerializer,CategorySerializer,ReviewSerializer,UserProfileSerializer,AuthorSerializer
 from rest_framework.decorators import api_view
 
 from rest_framework import generics
@@ -22,37 +13,38 @@ from django.contrib.auth.models import UserManager
 class BookList(generics.ListCreateAPIView):
     serializer_class = BookSerializer
     queryset = Book.objects.all()
+
+
     #permission_classes = (IsAuthenticated,)
+    #
+    # def get_queryset(self):
+    #     try:
+    #         queryset = Book.objects.all()
+    #     except queryset.DoesNotExist:
+    #         raise Http404
+    #
+    #     title =self.request.query_params.get('title',None)
+    #     if title is not None:
+    #         queryset = queryset.filter(title = title)
+    #
+    #     return queryset
+
+
 
 class CategoryList(generics.ListCreateAPIView):
     serializer_class = CategorySerializer
     #permission_classes = (IsAuthenticated,)
     queryset = Category.objects.all()
 
-class PublisherList(generics.ListCreateAPIView):
-    serializer_class = PublisherSerializer
-    queryset = Publisher.objects.all()
-    #permission_classes = (IsAuthenticated,)
 class ReviewList(generics.ListCreateAPIView):
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
     #permission_classes = (IsAuthenticated,)
-#
-# @api_view(['GET'])
-# def review_of_book(request, pk):
-#     try:
-#         reviews = Review.objects.get(book=pk)
-#     except reviews.DoesNotExist as e:
-#         return Response(status=status.HTTP_404_NOT_FOUND)
-#
-#
-#     serializer = ReviewSerializer(reviews, many=True)
-#
-#     return Response(serializer.data,status=status.HTTP_200_OK)
-#
 
 class ReviewListOfOneBook(generics.ListCreateAPIView):
     serializer_class = ReviewSerializer
+    permission_classes = (IsAuthenticated,)
+
 
     def get_queryset(self):
         try:
@@ -61,11 +53,9 @@ class ReviewListOfOneBook(generics.ListCreateAPIView):
             raise Http404
         queryset = book.books.all()
         return queryset
-        queryset = book.reviews.all()
-        return queryset
 
-    # def perform_create(self, serializer):
-    #     serializer.save(user=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 
@@ -88,24 +78,77 @@ class CategoryBooks(generics.ListAPIView):
         queryset = category.books.all()
         return queryset
 
+    # def perform_create(self, serializer):
+    #     serializer.save(category=Category.objects.get(id=self.kwargs.get('pk')))
+class BookCreate(generics.CreateAPIView):
+    serializer_class = BookSerializer
+
+    def get_queryset(self):
+        try:
+            category = Category.objects.get(id=self.kwargs.get('pk'))
+        except Review.DoesNotExist:
+            raise Http404
+        queryset = category.books.all()
+        return queryset
+
+    def perform_create(self, serializer):
+        serializer.save(category=Category.objects.get(id=self.kwargs.get('pk')),
+                        author=Author.objects.get(id = self.kwargs.get('pk2')))
+
 class AuthorBooks(generics.ListAPIView):
     serializer_class = BookSerializer
 
     def get_queryset(self):
         try:
             author = Author.objects.get(id=self.kwargs.get('pk'))
-        except Review.DoesNotExist:
+        except Author.DoesNotExist:
             raise Http404
         queryset = author.books.all()
         return queryset
 
-class UserProfileDetail(generics.ListAPIView):
+
+class UserProfileDetail(generics.ListCreateAPIView):
     serializer_class = UserProfileSerializer
     permission_classes = (IsAuthenticated,)
+
     def get_queryset(self):
         try:
             userProf = UserProfile.objects.filter(user=self.request.user)
         except Review.DoesNotExist:
             raise Http404
         return userProf
+
+class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
+
+class AuthorDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = AuthorSerializer
+    queryset = Author.objects.all()
+class BookDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = BookSerializer
+    queryset = Book.objects.all()
+
+class UserProfBooks(generics.ListAPIView):
+    serializer_class = BookSerializer
+
+    def get_queryset(self):
+        try:
+            userPtof = UserProfile.objects.get(id = self.kwargs.get('pk'))
+        except UserProfile.DoesNotExist:
+            raise Http404
+        queryset = userPtof.book.all()
+        return queryset
+
+
+
+#
+# class filter(generics.ListAPIView):
+#     serializer_class = BookSerializer
+#     def get_queryset(self):
+#         result = Book.objects.filter(title = self.kwargs.get('pk'))
+#         return result
+
+
+
 

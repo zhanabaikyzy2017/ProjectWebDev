@@ -10,6 +10,10 @@ export class MainComponent implements OnInit {
   public categories: ICategory[]=[];
   public authors: IAuthor[]=[];
   public books:IBook[]=[];
+  public selectedCategoryBooks:IBook[];
+  public selected=false;
+  public authorSelected=false;
+  public selectedAuthorBooks:IBook[];
   constructor(private provider:ProviderService) { }
 
   ngOnInit() {
@@ -23,5 +27,24 @@ export class MainComponent implements OnInit {
       this.books=res;
     });
   }
-
+  getSelectedGenreBooks(category:ICategory){
+    this.provider.getOneGenreBooks(category).then(res=>{
+      this.selectedCategoryBooks=res;
+      this.selected=true;
+      console.log(res);
+    })
+  }
+  getSelectedAuthorBooks(author:IAuthor){
+    this.provider.getOneAuthorBooks(author).then(res=>{
+      this.selectedAuthorBooks=res;
+      this.authorSelected=true;
+      console.log(res)
+    })
+  }
+  back(){
+    this.selected=false;
+  }
+  backForAuthor(){
+    this.authorSelected=false;
+  }
 }

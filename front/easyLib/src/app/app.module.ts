@@ -5,18 +5,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { LoginComponent } from './login/login.component';
-import { AllpageComponent } from './allpage/allpage.component';
+
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
 import { ProviderService } from './service/provider.service';
 import { AuthInterceptor } from './AuthInterceptor';
 import { FormsModule} from '@angular/forms';
+import { OneGenreComponent } from './one-genre/one-genre.component';
+import { OneAuthorComponent } from './one-author/one-author.component';
+import { SignComponent } from './sign/sign.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     LoginComponent,
-    AllpageComponent,
+    OneGenreComponent,
+    OneAuthorComponent,
+    SignComponent,
+
   ],
   imports: [
     BrowserModule,

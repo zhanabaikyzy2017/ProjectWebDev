@@ -4,12 +4,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { LoginComponent} from './login/login.component';
-import { AllpageComponent } from './allpage/allpage.component';
+import { OneAuthorComponent} from './one-author/one-author.component';
+import { OneGenreComponent} from './one-genre/one-genre.component';
+import { SignComponent} from './sign/sign.component'
+
 
 const routes: Routes = [
   { path: '', component:MainComponent},
   {path:'login',component:LoginComponent},
-  {path:'easyLib',component:AllpageComponent}
+  {path:'author',component:OneAuthorComponent},
+  {path:'genre',component:OneGenreComponent},
+  {path:'sign',component:SignComponent},
 ];
 
 @NgModule({

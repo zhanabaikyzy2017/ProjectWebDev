@@ -1,7 +1,9 @@
 export interface IAuthor{
+    id:number;
     name:string;
     surname:string;
-    date_of_birth:any;
+    date_of_birth:string;
+    date_of_death:string;
 }
 
 export interface IPublisher{
@@ -9,10 +11,10 @@ export interface IPublisher{
 }
 
 export interface IUser{
-    userID:number;
+    id:number;
     username:string;
-    // password:string;
-    // email:string;
+    password:string;
+    email:string;
 }
 export interface IUserProfile{
     id:number;
@@ -24,27 +26,28 @@ export interface IUserProfile{
 }
 
 export interface ICategory{
+    id:number;
     name:string;
 }
 
 export interface IBook{
+    id:number;
     title:string;
     category:any;
     description:string;
     year:number;
     author: IAuthor
-    publisher:IPublisher
     page_amount:number;
     added_by:IUserProfile;
     image:any;
 }
-
-export interface IQuotation{
+export interface IReview{
     user:IUser;
     book:IBook;
-    quotation:string;
+    text:string;
     creation_date:any;
 }
 export interface IAuthResponse{
     token: string;
+    is_staff:boolean;
 }

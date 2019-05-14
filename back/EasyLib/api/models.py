@@ -5,19 +5,11 @@ from django.utils import timezone
 class Author(models.Model):
     name = models.CharField(max_length=200)
     surname = models.CharField(max_length=200)
-    date_of_birth = models.DateField()
-    date_of_death = models.DateField()
+    date_of_birth = models.CharField(max_length=200)
+    date_of_death = models.CharField(max_length=200)
     class Meta:
         verbose_name = 'Author'
         verbose_name_plural = 'Authors'
-
-
-class Publisher(models.Model):
-    name = models.CharField(max_length=200)
-
-    class Meta:
-        verbose_name = 'Publisher'
-        verbose_name_plural = 'Publishers'
 
 
 class Category(models.Model):
@@ -26,6 +18,22 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
+class UserProfileManager(models.Manager):
+    def create_user_profile(self,user):
+        userProfile=self.create(user=user)
+        return userProfile
+
+
+class UserProfile(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,default=1)
+    mobile = models.CharField(max_length=15,null=True)
+    website= models.CharField(max_length=50,null=True)
+    join_date = models.DateTimeField(auto_now_add=True)
+
+
+
+    objects=UserProfileManager()
+
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
@@ -34,9 +42,9 @@ class Book(models.Model):
     year = models.IntegerField()
     page_amount = models.IntegerField()
     author = models.ForeignKey(Author ,on_delete=models.CASCADE, related_name='books')
-    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
     image=models.ImageField(upload_to='Users/User/Desktop/ProjectWebDev/back/EasyLib/api/pic_folder/',default='pic_folder/FLAT-SEVAN-COVER.jpg')
-    # review = models.ForeignKey(Review, on_delete=models.CASCADE, default=1, related_name='reviews')
+    user_profile = models.ForeignKey(UserProfile,on_delete=models.CASCADE,default=1, related_name='book')
+
 
     class Meta:
         verbose_name = 'Book'
@@ -52,12 +60,3 @@ class Review(models.Model):
     class Meta:
         verbose_name = 'Review'
         verbose_name_plural = 'Reviews'
-
-
-class UserProfile(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,default=1)
-    mobile = models.CharField(max_length=15,null=True)
-    website= models.CharField(max_length=50,null=True)
-    join_date = models.DateTimeField(auto_now_add=True)
-    book = models.ManyToManyField(Book)
-

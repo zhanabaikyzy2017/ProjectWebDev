@@ -1,5 +1,8 @@
-
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 <ng-container *ngIf="!logged">
+    
   <div class="all_page">
     <div class="login">
       <h2 id="login">Please,write...</h2>
@@ -7,49 +10,130 @@
         <input type="text" id="username" placeholder="password" [(ngModel)]="password">
         <div class="logging">
           <button id="loginbtn" (click)="auth()">LOG IN</button>
+          <button id="singing" (click)="signup()">SIGN IN</button>
+          <div *ngIf="!signed">
+              <h2 id="login">Please,write...</h2>
+              <input type="text" id="username" placeholder="username" [(ngModel)]="slogin">
+              <input type="text" id="username" placeholder="password" [(ngModel)]="spassword">
+              <input type = "text" id = "username" placeholder="email" [(ngModel)] = "semail">
+            </div>
         </div>
     </div>
     <div class="outing">
         <button id="outing" [routerLink]="['']">BACK</button>
       </div>
   </div>
+
 </ng-container>
 
 
 <ng-container *ngIf="logged">
-    <div class="header">
-      <h1>HELLO</h1>
-    </div>
-    <div class="middle">
-      <div class="userprofile">
-        <h2 style="text-align: center">USERPROFILE</h2>
-        <ul>
-          <li>{{ userProfile[0].user.username }}</li>
-          <li> {{ userProfile[0].mobile }}</li>
-          <li>{{ userProfile[0].website }}</li>
-          <li>{{ userProfile[0].join_date }}</li>
-        </ul>
-      </div>
-      <div class="userbooks">
-        <div class="row">
-          <div class="column" *ngFor="let u of userbooks">
-              <div class="content">
-                  <img style="margin-top:10px;width:120px" src="https://cdn.shopify.com/s/files/1/0882/3478/files/Book_7fce494e-606f-43d0-89a2-51b698aa3369_1400x.png?v=1553019482">
-                  <div class="bookdesc">
-                    <ul>
-                      <li id="b" style="text-transform:uppercase;color:rgba(80, 1, 1, 0.7)">{{ u.title }}</li>
-                      <li id="b">{{ u.category.name }}</li>
-                      <li id="b">{{ u.year }}</li>
-                      <li id="b">{{ u.author.name+' '+u.author.surname}}</li>
-                      <li id="b">{{ u.page_amount }}</li>
-                    </ul>
-                  </div>
-                </div> 
-               
-          </div>
+  <div>
+      <div class="header">
+          <h1>HELLO, ADMIN</h1>
         </div>
+        <div class="middle">
+          <div class="userprofile">
+            <h2 style="text-align: center">USERPROFILE</h2>
+            <ul>
+              <li>{{userProfile[0].user.username }}</li>
+              <li> {{userProfile[0].mobile }}</li>
+              <li>{{userProfile[0].website }}</li>
+              <li>{{userProfile[0].join_date }}</li>
+            </ul>
+          </div>
+          <div class="userbooks">
+            <div class="row">
+              <div class="column" *ngFor="let u of books">
+                  <div (click)="getSelBook(u)" class="content">
+                      <img style="margin-top:10px;width:120px" src="https://cdn.shopify.com/s/files/1/0882/3478/files/Book_7fce494e-606f-43d0-89a2-51b698aa3369_1400x.png?v=1553019482">
+                      <div class="bookdesc">
+                        <ul>
+                          <li id="b" style="text-transform:uppercase;color:rgba(80, 1, 1, 0.7)">{{ u.title }}</li>
+                          <li id="b">{{ u.category.name }}</li>
+                          <li id="b">{{ u.year }}</li>
+                          <li id="b">{{ u.author.name+' '+u.author.surname}}</li>
+                          <li id="b">{{ u.page_amount }}</li>
+                        </ul>
+                      </div>
+                    </div> 
+                   
+              </div>
+            </div>
+          </div>
+          <div class="genres">
+            <h3 style="text-align: center;color:rgba(80, 1, 1, 0.7)">GENRES</h3>
+            <div *ngFor=" let g of genres">
+              <a id="genres" (click)="getSelGenre(g)">{{ g.name }}</a>
+            </div>
+          </div>
+          <div class="authors">
+              <h3 style="text-align: center;color:rgba(80, 1, 1, 0.7)">AUTHOR</h3>
+              <div *ngFor=" let a of authors">
+                <a id="authors" (click)="getSelAuthor(a)">{{ a.name+' '+a.surname}}</a>
+              </div>
+            </div>
+            <div class="creation">
+                <button class="tablink" (click)="gclick()">GENRE</button>
+                <button class="tablink" (click)="aclick()">AUTHOR</button>
+                <button  class="tablink" (click)="bclick()">BOOK</button>
+                <button class="tablink" (click)="rclick()" >DELETIONS</button>
+                <div *ngIf="genreclicked">
+                    <input style="position:relative;left:200px;width:300px;height: 30px;" type="text" placeholder="name" [(ngModel)]="name">
+                    <button id="createCategory" (click)="createCategory()">CREATE</button>
+                </div>
+                <div *ngIf="authorclicked">
+                    <input type="text" placeholder="title" [(ngModel)]="aname">
+                    <input type="text" placeholder="surname" [(ngModel)]="asurname">
+                    <input type="text"  placeholder="dateofbirth" [(ngModel)]="adb">
+                    <input type="text" placeholder="dateofdeath"  [(ngModel)]="add">
+                    <button (click)="createAuthor()"> CREATE</button>
+                    
+                </div>
+                <div *ngIf="bookcliked">
+                    <input type="text" placeholder="title" [(ngModel)]="bookName">
+                    <input type="text" placeholder="description" [(ngModel)]="bookDescription">
+                    <input type="number"  placeholder="year" [(ngModel)]="bookYear">
+                    <input type="number" placeholder="page amount"  [(ngModel)]="bookPages">
+                    <button (click)="createBook()"> CREATE</button>
+                    
+                </div>
+                <div *ngIf="reviewclicked">
+                    <button (click)="deleteBook()"> DELETE THE BOOK</button>
+                    <button (click)="deleteAuthor()"> DELETE THE AUTHOR</button>
+                    <button (click)="deleteGenre()"> DELETE THE GENRE</button>
+                </div>
+    
+            </div>
+        </div>
+        <button id="logout" (click)="logout()">Log Out </button>  
+  </div>
+
+    <!-- <div *ngIf="!is_staff">
+    <div class="headerJustUser">
+        <button id="logoutUser" (click)="logout()">LOGOUT</button>
+        <h2 id="userWelcome">YOU CAN READ DESCIPTTIONS AND WRITE REVIEWS</h2>
+    </div>
+    <div class="bodyJustUser">
+      <div class="userBooksnotStaff">
+          <div class="row">
+              <div class="column" *ngFor="let u of books">
+                  <div class="content">
+                      <img style="margin-top:10px;width:120px" src="https://cdn.shopify.com/s/files/1/0882/3478/files/Book_7fce494e-606f-43d0-89a2-51b698aa3369_1400x.png?v=1553019482">
+                      <div class="bookdesc">
+                        <ul>
+                          <li id="b" style="text-transform:uppercase;color:rgba(80, 1, 1, 0.7)">{{ u.title }}</li>
+                          <li id="b">{{ u.category.name }}</li>
+                          <li id="b">{{ u.year }}</li>
+                          <li id="b">{{ u.author.name+' '+u.author.surname}}</li>
+                          <li id="b">{{ u.page_amount }}</li>
+                        </ul>
+                      </div>
+                    </div> 
+                   
+              </div>
+            </div>
       </div>
     </div>
-
-    <button id="logout" (click)="logout()">Log Out </button>
-  </ng-container>
+  </div> -->
+</ng-container>
