@@ -13,33 +13,15 @@ from django.contrib.auth.models import UserManager
 class BookList(generics.ListCreateAPIView):
     serializer_class = BookSerializer
     queryset = Book.objects.all()
-
-
-    #permission_classes = (IsAuthenticated,)
-    #
-    # def get_queryset(self):
-    #     try:
-    #         queryset = Book.objects.all()
-    #     except queryset.DoesNotExist:
-    #         raise Http404
-    #
-    #     title =self.request.query_params.get('title',None)
-    #     if title is not None:
-    #         queryset = queryset.filter(title = title)
-    #
-    #     return queryset
-
-
+    # permission_classes = (IsAuthenticated,)
 
 class CategoryList(generics.ListCreateAPIView):
     serializer_class = CategorySerializer
-    #permission_classes = (IsAuthenticated,)
     queryset = Category.objects.all()
 
 class ReviewList(generics.ListCreateAPIView):
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
-    #permission_classes = (IsAuthenticated,)
 
 class ReviewListOfOneBook(generics.ListCreateAPIView):
     serializer_class = ReviewSerializer
@@ -56,7 +38,6 @@ class ReviewListOfOneBook(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-
 
 
 class UserProfileList(generics.ListCreateAPIView):
@@ -78,8 +59,6 @@ class CategoryBooks(generics.ListAPIView):
         queryset = category.books.all()
         return queryset
 
-    # def perform_create(self, serializer):
-    #     serializer.save(category=Category.objects.get(id=self.kwargs.get('pk')))
 class BookCreate(generics.CreateAPIView):
     serializer_class = BookSerializer
 
@@ -125,13 +104,13 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
 class AuthorDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AuthorSerializer
     queryset = Author.objects.all()
+
 class BookDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BookSerializer
     queryset = Book.objects.all()
 
 class UserProfBooks(generics.ListAPIView):
     serializer_class = BookSerializer
-
     def get_queryset(self):
         try:
             userPtof = UserProfile.objects.get(id = self.kwargs.get('pk'))
@@ -139,16 +118,3 @@ class UserProfBooks(generics.ListAPIView):
             raise Http404
         queryset = userPtof.book.all()
         return queryset
-
-
-
-#
-# class filter(generics.ListAPIView):
-#     serializer_class = BookSerializer
-#     def get_queryset(self):
-#         result = Book.objects.filter(title = self.kwargs.get('pk'))
-#         return result
-
-
-
-

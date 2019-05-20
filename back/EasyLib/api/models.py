@@ -7,6 +7,7 @@ class Author(models.Model):
     surname = models.CharField(max_length=200)
     date_of_birth = models.CharField(max_length=200)
     date_of_death = models.CharField(max_length=200)
+
     class Meta:
         verbose_name = 'Author'
         verbose_name_plural = 'Authors'
@@ -18,19 +19,17 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
+
 class UserProfileManager(models.Manager):
     def create_user_profile(self,user):
         userProfile=self.create(user=user)
         return userProfile
-
 
 class UserProfile(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,default=1)
     mobile = models.CharField(max_length=15,null=True)
     website= models.CharField(max_length=50,null=True)
     join_date = models.DateTimeField(auto_now_add=True)
-
-
 
     objects=UserProfileManager()
 
@@ -60,3 +59,5 @@ class Review(models.Model):
     class Meta:
         verbose_name = 'Review'
         verbose_name_plural = 'Reviews'
+
+

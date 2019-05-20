@@ -7,18 +7,21 @@
     <div class="login">
       <h2 id="login">Please,write...</h2>
         <input type="text" id="username" placeholder="username" [(ngModel)]="login">
-        <input type="text" id="username" placeholder="password" [(ngModel)]="password">
+        <input type="password" id="username" placeholder="password" [(ngModel)]="password">
         <div class="logging">
           <button id="loginbtn" (click)="auth()">LOG IN</button>
-          <button id="singing" (click)="signup()">SIGN IN</button>
-          <div *ngIf="!signed">
-              <h2 id="login">Please,write...</h2>
-              <input type="text" id="username" placeholder="username" [(ngModel)]="slogin">
-              <input type="text" id="username" placeholder="password" [(ngModel)]="spassword">
-              <input type = "text" id = "username" placeholder="email" [(ngModel)] = "semail">
-            </div>
+          <a id="noacc" (click)="noaccount()">have you got an account?</a>
+          <div *ngIf="noacc">
+              <div class="sign">
+                 <input style="position:relative;top:30px"type="text" id="username" placeholder="username" [(ngModel)]="slogin">
+                 <input  style="position:relative;top:30px" type="password" id="username" placeholder="password" [(ngModel)]="spassword">
+                 <input  style="position:relative;top:30px" type = "text" id = "username" placeholder="email" [(ngModel)] = "semail">
+                 <button style="position:relative;top:30px" id="loginbtnn" (click)="signup()">SIGN IN</button>
+              </div>
+             </div>
         </div>
     </div>
+    
     <div class="outing">
         <button id="outing" [routerLink]="['']">BACK</button>
       </div>
@@ -79,29 +82,30 @@
                 <button  class="tablink" (click)="bclick()">BOOK</button>
                 <button class="tablink" (click)="rclick()" >DELETIONS</button>
                 <div *ngIf="genreclicked">
-                    <input style="position:relative;left:200px;width:300px;height: 30px;" type="text" placeholder="name" [(ngModel)]="name">
+                    <input style="position:relative;left:200px;width:300px;height: 30px;border-radius: 10px;" type="text" placeholder="name" [(ngModel)]="name">
                     <button id="createCategory" (click)="createCategory()">CREATE</button>
                 </div>
                 <div *ngIf="authorclicked">
-                    <input type="text" placeholder="title" [(ngModel)]="aname">
-                    <input type="text" placeholder="surname" [(ngModel)]="asurname">
-                    <input type="text"  placeholder="dateofbirth" [(ngModel)]="adb">
-                    <input type="text" placeholder="dateofdeath"  [(ngModel)]="add">
-                    <button (click)="createAuthor()"> CREATE</button>
+                    <input id="authordetail" type="text" placeholder="name" [(ngModel)]="aname">
+                    <input  id="authordetail" type="text" placeholder="surname" [(ngModel)]="asurname">
+                    <input id="authordetail" type="text"  placeholder="dateofbirth" [(ngModel)]="adb">
+                    <input id="authordetail" type="text" placeholder="dateofdeath"  [(ngModel)]="add">
+                    <button style="position: relative; margin-top:80px;margin-left:50px;width:70px;height:30px;color:white;background-color: rgba(63, 87, 44, 0.9);border-radius: 10px;" (click)="createAuthor()"> CREATE</button>
                     
                 </div>
                 <div *ngIf="bookcliked">
-                    <input type="text" placeholder="title" [(ngModel)]="bookName">
-                    <input type="text" placeholder="description" [(ngModel)]="bookDescription">
-                    <input type="number"  placeholder="year" [(ngModel)]="bookYear">
-                    <input type="number" placeholder="page amount"  [(ngModel)]="bookPages">
-                    <button (click)="createBook()"> CREATE</button>
+                    <input id="bookcreate"type="text" placeholder="title" [(ngModel)]="bookName">
+                    <input id="bookcreate" type="text" placeholder="description" [(ngModel)]="bookDescription">
+                    <input id="bookcreate" type="number"  placeholder="year" [(ngModel)]="bookYear">
+                    <input id="bookcreate" type="number" placeholder="page amount"  [(ngModel)]="bookPages">
+                    <button style="position: relative; margin-top:80px;margin-left:50px;width:70px;height:30px;color:white;background-color: rgba(63, 87, 44, 0.9);border-radius: 10px;" (click)="createBook()"> CREATE</button>
                     
                 </div>
                 <div *ngIf="reviewclicked">
-                    <button (click)="deleteBook()"> DELETE THE BOOK</button>
-                    <button (click)="deleteAuthor()"> DELETE THE AUTHOR</button>
-                    <button (click)="deleteGenre()"> DELETE THE GENRE</button>
+                    <input style="position: absolute;top:100px;left:450px;width:200px;height:30px;border-radius:10px;" type="text" [(ngModel)]="globalName">
+                    <button id="bookdelete" (click)="deleteBook()"> DELETE THE BOOK</button>
+                    <button id="authordelete"(click)="deleteAuthor()"> DELETE THE AUTHOR</button>
+                    <button id="genredelete" (click)="deleteGenre()"> DELETE THE GENRE</button>
                 </div>
     
             </div>

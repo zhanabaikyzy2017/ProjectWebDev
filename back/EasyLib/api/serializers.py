@@ -20,9 +20,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class BookSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     author = AuthorSerializer(read_only=True)
-    # publisher = PublisherSerializer(read_only=True)
     category = CategorySerializer(read_only=True)
-    # image = serializers.ImageField(read_only=True)
 
     class Meta:
         model = Book

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProviderService } from '../service/provider.service';
 import { IBook,IUser ,IUserProfile,ICategory,IAuthor} from '../models/model';
-import { ICapability } from 'selenium-webdriver';
-import { currentId } from 'async_hooks';
-import { userInfo } from 'os';
+
 
 
 @Component({
@@ -44,6 +42,8 @@ export class LoginComponent implements OnInit {
   public spassword:any='';
   public semail:any='';
   public selectedBook:IBook;
+  public globalName:string;
+  public noacc=false;
 
  
   constructor( private provider:ProviderService) { }
@@ -54,7 +54,6 @@ export class LoginComponent implements OnInit {
       this.logged=true;
     }
     if(this.logged){
-
       this.provider.getCurUP().then(res=>{
         this.currentup=res;//Userprofile
         console.log(res);
@@ -110,18 +109,24 @@ export class LoginComponent implements OnInit {
     this.provider.getSelectedBook(book).then(res=>{
       this.selectedBook=res;
       console.log("ok");
+      this.globalName=this.selectedBook.title;
     })
   }
   getSelGenre(category:ICategory){
     this.provider.getSelectedGenre(category).then(res=>{
       this.selectedGenre=res;
       console.log("ok");
+      this.globalName=this.selectedGenre.name;
     })
+  }
+  noaccount(){
+    this.noacc=true;
   }
   getSelAuthor(author:IAuthor){
     this.provider.getSelectedAuthor(author).then(res=>{
       this.selectedAuthor=res;
-      console.log('ok')
+      console.log('ok');
+      this.globalName=this.selectedAuthor.name+" "+this.selectedAuthor.surname;
     })
   }
   gclick(){
@@ -135,7 +140,6 @@ export class LoginComponent implements OnInit {
     this.authorclicked=false;
     this.bookcliked=true;
     this.reviewclicked=false;
-    
   }
   aclick(){
     this.genreclicked=false;

@@ -55,10 +55,10 @@ def signup(request):
         )
         return Response(serilizer.data, status=status.HTTP_200_OK)
     return Response(serilizer.errors)
-
-class ThisUser(generics.ListAPIView):
-    serializer_class = UserProfileSerializer
-    permission_classes = (IsAuthenticated,)
+#
+# class ThisUser(generics.ListAPIView):
+#     serializer_class = UserProfileSerializer
+#     permission_classes = (IsAuthenticated,)
 
 
 @api_view(['GET'])

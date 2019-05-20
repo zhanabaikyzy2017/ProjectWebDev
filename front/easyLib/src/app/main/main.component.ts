@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProviderService } from '../service/provider.service';
-import { IBook,ICategory, IAuthor } from '../models/model';
+import { IBook,ICategory, IAuthor, IUserProfile } from '../models/model';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -14,6 +14,7 @@ export class MainComponent implements OnInit {
   public selected=false;
   public authorSelected=false;
   public selectedAuthorBooks:IBook[];
+  public cuProfile:IUserProfile;
   constructor(private provider:ProviderService) { }
 
   ngOnInit() {
@@ -23,6 +24,9 @@ export class MainComponent implements OnInit {
     this.provider.getAuthors().then(res=>{
       this.authors=res;
     });
+    this.provider.getCurUP().then(res=>{
+      this.cuProfile=res;
+    })
     this.provider.getBooks().then(res=>{
       this.books=res;
     });
@@ -47,4 +51,5 @@ export class MainComponent implements OnInit {
   backForAuthor(){
     this.authorSelected=false;
   }
+  
 }

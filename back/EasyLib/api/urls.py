@@ -12,8 +12,6 @@ urlpatterns = [
     path('categories/<int:pk>/books', views.CategoryBooks.as_view()),
     path('categories/<int:pk>/books/<int:pk2>/',views.BookCreate.as_view()),
 
-    # path('publishers/',views.PublisherList.as_view()),
-
     path('authors/',views.AuthorList.as_view()),
     path('authors/<int:pk>/', views.AuthorDetail.as_view()),
     path('authors/<int:pk>/books', views.AuthorBooks.as_view()),
@@ -29,9 +27,6 @@ urlpatterns = [
     path('user_profiles/',views.UserProfileList.as_view()),
     path('user_profile/<int:pk>/books', views.UserProfBooks.as_view()),
     path('user_profiles/<int:pk>', views.UserProfileDetail.as_view())
-
-    # path('filter/<char:pk>',views.filter),
-
 
 
 ]
